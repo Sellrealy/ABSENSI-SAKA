@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Absensi Kelas Rapi</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+  :root {
+    --clr-bg: #ffffff;
+    --clr-primary: #111827;
+    --clr-secondary: #6b7280;
+    --clr-accent: #000000;
+    --clr-accent-hover: #444444;
+    --clr-border: #e5e7eb;
+    --radius: 0.75rem;
+    --shadow-light: rgba(0,0,0,0.05);
+    --transition: 0.3s ease;
+    --font-family: 'Poppins', sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-family);
+    background: var(--clr-bg);
+    color: var(--clr-secondary);
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    background: var(--clr-bg);
+    box-shadow: 0 2px 8px var(--shadow-light);
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+  }
+
+  header .logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--clr-primary);
+    user-select: none;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  nav > * {
+    color: var(--clr-secondary);
+    font-weight: 600;
+    font-size: 1rem;
+    user-select: none;
+  }
+
+  #filter-date, #filter-status {
+    padding: 0.4rem 0.8rem;
+    font-size: 1rem;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--clr-border);
+    font-family: var(--font-family);
+    transition: border-color var(--transition);
+    cursor: pointer;
+  }
+
+  #filter-date:focus, #filter-status:focus {
+    outline: none;
+    border-color: var(--clr-accent);
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 3rem auto 4rem;
+    padding: 0 2rem;
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 3rem;
+    color: var(--clr-primary);
+    margin-bottom: 2rem;
+    user-select: none;
+    text-align: center;
+  }
+
+  .card {
+    background: var(--clr-bg);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 20px var(--shadow-light);
+    padding: 2rem;
+  }
+
+  .attendance-date {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--clr-primary);
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .students-list {
+    border-radius: var(--radius);
+    box-shadow: 0 8px 20px var(--shadow-light);
+    background: var(--clr-bg);
+  }
+
+  /* Header row & student rows */
+  .header-row, .student-row {
+    display: grid;
+    grid-template-columns: 5fr 5fr 4fr;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    align-items: center;
+    border-bottom: 1px solid var(--clr-border);
+    font-weight: 700;
+    color: var(--clr-primary);
+    user-select: none;
+  }
+
+  .student-row {
+    font-weight: 500;
+    color: var(--clr-secondary);
+    border-bottom: 1px solid var(--clr-border);
+    transition: background-color var(--transition);
+  }
+
+  .student-row:nth-child(odd) {
+    background-color: #fafafa;
+  }
+
+  .student-row:hover {
+    background-color: #f3f4f6;
+  }
+
+  /* Columns text overflow and alignment */
+  .col-name, .col-school {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .col-name {
+    font-weight: 600;
+  }
+
+  select {
+    width: 100%;
+    padding: 0.4rem 0.75rem;
+    font-size: 1rem;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--clr-border);
+    background: #fff;
+    transition: border-color var(--transition);
+    font-family: var(--font-family);
+    cursor: pointer;
+  }
+
+  select:focus {
+    outline: none;
+    border-color: var(--clr-accent);
+  }
+
+  .izin-input {
+    width: 100%;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.95rem;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--clr-border);
+    font-family: var(--font-family);
+    transition: border-color var(--transition);
+    margin-top: 0.3rem;
+  }
+
+  .izin-input:focus {
+    outline: none;
+    border-color: var(--clr-accent);
+  }
+
+  /* Save button style */
+  button#save-button {
+    margin-top: 1rem;
+    align-self: center;
+    padding: 0.85rem 3rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: var(--clr-accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color var(--transition);
+    user-select: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  button#save-button:hover,
+  button#save-button:focus {
+    background: var(--clr-accent-hover);
+  }
+
+  @media (max-width: 960px) {
+    .header-row, .student-row {
+      grid-template-columns: 4fr 4fr 4fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .header-row, .student-row {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+      padding: 1rem;
+      text-align: left;
+      border-bottom: none;
+    }
+    .student-row {
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--clr-border);
+    }
+    .col-name, .col-school, .col-status {
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+    }
+    select {
+      width: 100%;
+    }
+    .izin-input {
+      width: 100%;
+      margin-top: 0.35rem;
+    }
+  }
+</style>
+</head>
+<body>
+<header role="banner">
+  <div class="logo" tabindex="0">SAKA BHAYANGKARA</div>
+  <nav role="navigation" aria-label="Primary Navigation" class="nav-filters">
+    <div class="filters">
+      <label for="filter-date">Tanggal Absensi:</label>
+      <input type="date" id="filter-date" aria-label="Pilih tanggal absensi" />
+    </div>
+    <div class="filters">
+      <label for="filter-status">Filter Status:</label>
+      <select id="filter-status" aria-label="Filter berdasarkan status absensi">
+        <option value="all">Semua</option>
+        <option value="Izin">Izin</option>
+        <option value="Hadir">Hadir</option>
+        <option value="Sakit">Sakit</option>
+        <option value="Alpha">Alpha</option>
+        <option value="-">-</option>
+      </select>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <h1>Absensi Saka Bhayangkara</h1>
+  <div class="attendance-date" aria-live="polite" aria-atomic="true" id="display-date"></div>
+  <section class="card" aria-label="Form absensi siswa">
+    <form id="attendance-form" novalidate autocomplete="off" aria-describedby="form-desc">
+      <p id="form-desc" style="color: var(--clr-secondary); text-align:center; margin-bottom:1rem;">
+        Pilih status absensi untuk setiap siswa. Jangan lupa klik tombol "Simpan Absensi" untuk menyimpan data.
+      </p>
+
+      <div class="students-list" role="list" aria-label="Daftar siswa hadir">
+        <div class="header-row" role="row">
+          <div class="col-name" role="columnheader" tabindex="0">Nama</div>
+          <div class="col-school" role="columnheader" tabindex="0">Asal Sekolah</div>
+          <div class="col-status" role="columnheader" tabindex="0">Status</div>
+        </div>
+        <!-- Rows inserted here -->
+      </div>
+
+      <button type="button" id="save-button" aria-label="Simpan absensi">Simpan Absensi</button>
+    </form>
+  </section>
+</main>
+
+<script>
+(() => {
+  const students = [
+    {id: 1, nama: "Risca Fazriah Syabaniah", sekolah: "SMK KORPRI SUMEDANG"},
+    {id: 2, nama: "Muhammad Cipta Hardiansyah", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 3, nama: "Lita Julia Heryani", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 4, nama: "Risma Kania Dewi", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 5, nama: "Sely Permata Sari", sekolah: "SMKN 2 SUMEDANG" },
+    {id: 6, nama: "Shayma Fakhira Hazimah", sekolah: "SMKN 2 SUMEDANG" },
+    {id: 7, nama: "Salsabila", sekolah: "SMKN 2 SUMEDANG", kelas: "7B"},
+    {id: 8, nama: "Jilan Alyapancahaya", sekolah: "SMKN 2 SUMEDANG" },
+    {id: 9, nama: "Devi Ayuzia Komariah", sekolah: "SMKN 2 SUMEDANG" },
+    {id: 10, nama: "Sri Aulia Anggraeni", sekolah: "SMKN 2 SUMEDANG" },
+    {id: 11, nama: "Kesha Amelia Permana", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 12, nama: "Ai Riani", sekolah: "SMKN 2 SUMEDANG", kelas: "7B"},
+    {id: 13, nama: "Mialda Putri Defiyanti", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 14, nama: "Zulfa Siti Sarah", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 15, nama: "Karisa Aulia Zahra", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 16, nama: "Elis Sriwahyuni", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 17, nama: "Fatimah Az Zahra", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 18, nama: "Riko Pratama", sekolah: "SMKN 1 SUMEDANG"},
+    {id: 19, nama: "Gandi Fimanda Ristama", sekolah: "SMKN 1 SUMEDANG"},
+    {id: 20, nama: "Naufal Arif Yuswandi", sekolah: "SMKN 1 SUMEDANG"},
+    {id: 21, nama: "Kaka Ahmad Fauzi", sekolah: "SMK INFORMATIKA SUMEDANG"},
+    {id: 22, nama: "Agus Setiawan Pratama Putra", sekolah: "SMKN 1 SUMEDANG"},
+    {id: 23, nama: "Theo Fikri Adityapratama", sekolah: "SMKN 1 BUAHDUA"},
+    {id: 24, nama: "Azis Turmuzi", sekolah: "SMKN 1 BUAHDUA", kelas: "7B"},
+    {id: 25, nama: "Candra Ahmad Pratama", sekolah: "SMKN 1 BUAHDUA"},
+    {id: 26, nama: "Giry Algifari", sekolah: "SMKS YPGU SUMEDANG"},
+    {id: 27, nama: "Nailah Nurul Hikmah", sekolah: "SMAN 2 SUMEDANG"}
+];
+
+  // Sort students by name A-Z
+  students.sort((a,b) => {
+    if(a.sekolah === b.sekolah) {
+      return a.nama.localeCompare(b.nama, 'id');
+    }
+    return a.sekolah.localeCompare(b.sekolah, 'id');
+  });
+
+  const STATUS_OPTIONS = ["-", "Izin", "Hadir", "Sakit", "Alpha"];
+
+  const form = document.getElementById('attendance-form');
+  const studentsList = form.querySelector('.students-list');
+  const filterDateInput = document.getElementById('filter-date');
+  const filterStatusSelect = document.getElementById('filter-status');
+  const displayDate = document.getElementById('display-date');
+  const saveButton = document.getElementById('save-button');
+
+  // Attendance data: attendance[date][studentId] = {status, izinReason}
+  let attendance = {};
+  const STORAGE_KEY = "absensiRapiData";
+
+  function formatDateReadable(dateStr) {
+    const d = new Date(dateStr);
+    if (isNaN(d)) return "";
+    return d.toLocaleDateString('id-ID', {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+  }
+
+  function saveAttendanceData() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(attendance));
+  }
+
+  function loadAttendanceData() {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+    if (savedData) {
+      try {
+        attendance = JSON.parse(savedData);
+      } catch {
+        attendance = {};
+      }
+    }
+  }
+
+  function getAttendanceForDate(dateStr) {
+    return attendance[dateStr] || {};
+  }
+
+  function createStudentRow(student, attStatusData, dateStr) {
+    const row = document.createElement('div');
+    row.className = 'student-row';
+    row.setAttribute('role', 'row');
+    row.dataset.nama = student.nama.toLowerCase();
+
+    // Name
+    const colName = document.createElement('div');
+    colName.className = 'col-name';
+    colName.setAttribute('role', 'cell');
+    colName.textContent = student.nama;
+    row.appendChild(colName);
+
+    // School
+    const colSchool = document.createElement('div');
+    colSchool.className = 'col-school';
+    colSchool.setAttribute('role', 'cell');
+    colSchool.textContent = student.sekolah;
+    row.appendChild(colSchool);
+
+    // Status with izin input if needed
+    const colStatus = document.createElement('div');
+    colStatus.className = 'col-status';
+    colStatus.setAttribute('role', 'cell');
+
+    const select = document.createElement('select');
+    select.setAttribute('aria-label', `Status absensi untuk ${student.nama}`);
+    select.dataset.studentId = student.id;
+    STATUS_OPTIONS.forEach(optionVal => {
+      const option = document.createElement('option');
+      option.value = optionVal;
+      option.textContent = optionVal;
+      select.appendChild(option);
+    });
+
+    const saved = attStatusData[student.id];
+    const currentStatus = saved ? saved.status : "-";
+    select.value = currentStatus || "-";
+
+    colStatus.appendChild(select);
+
+    const izinInput = document.createElement('input');
+    izinInput.type = 'text';
+    izinInput.placeholder = 'Keterangan izin...';
+    izinInput.className = 'izin-input';
+    izinInput.style.marginTop = '0.35rem';
+    izinInput.value = saved ? (saved.izinReason || '') : '';
+    izinInput.style.display = currentStatus === 'Izin' ? 'block' : 'none';
+    izinInput.setAttribute('aria-label', `Keterangan izin untuk ${student.nama}`);
+
+    colStatus.appendChild(izinInput);
+
+    row.appendChild(colStatus);
+
+    function updateAttendance() {
+      attendance[dateStr] = attendance[dateStr] || {};
+      attendance[dateStr][student.id] = {
+        status: select.value,
+        izinReason: izinInput.style.display === 'block' ? izinInput.value.trim() : ''
+      };
+    }
+
+    select.addEventListener('change', () => {
+      if (select.value === 'Izin') {
+        izinInput.style.display = 'block';
+        izinInput.focus();
+      } else {
+        izinInput.style.display = 'none';
+        izinInput.value = '';
+      }
+      updateAttendance();
+    });
+
+    izinInput.addEventListener('input', () => {
+      updateAttendance();
+    });
+
+    // Initialize attendance data for this row
+    updateAttendance();
+
+    return row;
+  }
+
+  function renderStudentList(dateStr) {
+    studentsList.innerHTML = '';
+    const dayData = getAttendanceForDate(dateStr);
+
+    // Header row with 3 columns
+    const headerRow = document.createElement('div');
+    headerRow.className = 'header-row';
+    headerRow.setAttribute('role', 'row');
+    headerRow.innerHTML = `
+      <div class="col-name" role="columnheader" tabindex="0">Nama</div>
+      <div class="col-school" role="columnheader" tabindex="0">Asal Sekolah</div>
+      <div class="col-status" role="columnheader" tabindex="0">Status</div>
+    `;
+    studentsList.appendChild(headerRow);
+
+    const sortedStudents = [...students].sort((a,b) => a.nama.localeCompare(b.nama, 'id'));
+
+    sortedStudents.forEach(student => {
+      const row = createStudentRow(student, dayData, dateStr);
+      studentsList.appendChild(row);
+    });
+  }
+
+  function filterByStatus() {
+    const statusFilter = filterStatusSelect.value;
+    const rows = Array.from(studentsList.querySelectorAll('.student-row'));
+    rows.forEach(row => {
+      const select = row.querySelector('select');
+      if (statusFilter === "all" || select.value === statusFilter) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+  function setDefaultDate() {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = (today.getMonth() + 1).toString().padStart(2,'0');
+    const dd = today.getDate().toString().padStart(2,'0');
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+  function initDateFilter() {
+    let storedDate = localStorage.getItem("absensiRapiSelectedDate");
+    if (!storedDate) storedDate = setDefaultDate();
+    filterDateInput.value = storedDate;
+
+    updateDisplayDate(storedDate);
+    renderStudentList(storedDate);
+  }
+
+  function updateDisplayDate(dateStr) {
+    displayDate.textContent = `Tanggal Absensi: ${formatDateReadable(dateStr)}`;
+  }
+
+  filterDateInput.addEventListener('change', () => {
+    const selectedDate = filterDateInput.value;
+    localStorage.setItem("absensiRapiSelectedDate", selectedDate);
+    updateDisplayDate(selectedDate);
+    renderStudentList(selectedDate);
+  });
+
+  filterStatusSelect.addEventListener('change', () => {
+    filterByStatus();
+  });
+
+  saveButton.addEventListener('click', () => {
+    const selectedDate = filterDateInput.value;
+    if (!selectedDate) {
+      alert('Mohon pilih tanggal absensi sebelum menyimpan.');
+      return;
+    }
+    // Data is updated live with inputs, just save to storage now
+    saveAttendanceData();
+    alert(`Absensi tanggal ${formatDateReadable(selectedDate)} berhasil disimpan.`);
+  });
+
+  // Init
+  loadAttendanceData();
+  initDateFilter();
+
+  // Initial status filter setup
+  filterStatusSelect.value = "all";
+  filterStatusSelect.dispatchEvent(new Event('change'));
+
+})();
+</script>
+</body>
+</html>
