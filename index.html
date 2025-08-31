@@ -282,7 +282,6 @@
       <div class="students-list" role="list" aria-label="Daftar siswa hadir">
         <div class="header-row" role="row">
           <div class="col-name" role="columnheader" tabindex="0">Nama</div>
-          <div class="col-school" role="columnheader" tabindex="0">Asal Sekolah</div>
           <div class="col-status" role="columnheader" tabindex="0">Status</div>
         </div>
         <!-- Rows inserted here -->
@@ -296,31 +295,31 @@
 <script>
 (() => {
   const students = [
-    {id: 1, nama: "Rifqi Zein Lazuardi", sekolah: "SMK KORPRI SUMEDANG"},
-    {id: 2, nama: "Janwar Rizky", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 3, nama: "Aditya", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 4, nama: "Alvin Ramadhan", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 5, nama: "Muhammad Raffi Hanafi", sekolah: "SMKN 2 SUMEDANG" },
-    {id: 6, nama: "Raffi", sekolah: "SMKN 2 SUMEDANG" },
-    {id: 7, nama: "Ridwan Maulana", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 8, nama: "Aripin", sekolah: "SMKN 2 SUMEDANG" },
-    {id: 9, nama: "Faiha Jauza Thufailah", sekolah: "SMKN 2 SUMEDANG" },
-    {id: 10, nama: "Aira Ferlitha Saputri", sekolah: "SMKN 2 SUMEDANG" },
-    {id: 11, nama: "Regina Putri", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 12, nama: "Susi Rosniawati", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 13, nama: "Hesti Nur Hasanah", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 14, nama: "Rismayanti Sri Ependi", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 15, nama: "Indy Arianeu", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 16, nama: "Qomara Abdul Hakim", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 17, nama: "Maisun Rusydah N.A", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 18, nama: "Sri Rahayu", sekolah: "SMKN 1 SUMEDANG"},
-    {id: 19, nama: "Salsabilah", sekolah: "SMKN 1 SUMEDANG"},
-    {id: 20, nama: "Ocha Salsabila", sekolah: "SMKN 1 SUMEDANG"},
-    {id: 21, nama: "Siti Fatimah", sekolah: "SMK INFORMATIKA SUMEDANG"},
-    {id: 22, nama: "Syahla Shofa", sekolah: "SMKN 1 SUMEDANG"},
-    {id: 23, nama: "Putri Ramadhani", sekolah: "SMKN 1 BUAHDUA"},
-    {id: 24, nama: "Ervan", sekolah: "SMKN 1 BUAHDUA"},
-    {id: 25, nama: "Hilda Ramadhani", sekolah: "SMKN 1 BUAHDUA"}, ];
+    {id: 1, nama: "Rifqi Zein Lazuardi"},
+    {id: 2, nama: "Janwar Rizky"},
+    {id: 3, nama: "Aditya"},
+    {id: 4, nama: "Alvin Ramadhan"},
+    {id: 5, nama: "Muhammad Raffi Hanafi",
+    {id: 6, nama: "Raffi"},
+    {id: 7, nama: "Ridwan Maulana"},
+    {id: 8, nama: "Aripin"},
+    {id: 9, nama: "Faiha Jauza Thufailah"},
+    {id: 10, nama: "Aira Ferlitha Saputri"},
+    {id: 11, nama: "Regina Putri"},
+    {id: 12, nama: "Susi Rosniawati"},
+    {id: 13, nama: "Hesti Nur Hasanah"},
+    {id: 14, nama: "Rismayanti Sri Ependi"},
+    {id: 15, nama: "Indy Arianeu"},
+    {id: 16, nama: "Qomara Abdul Hakim"},
+    {id: 17, nama: "Maisun Rusydah N.A"},
+    {id: 18, nama: "Sri Rahayu"},
+    {id: 19, nama: "Salsabilah"},
+    {id: 20, nama: "Ocha Salsabila"},
+    {id: 21, nama: "Siti Fatimah"},
+    {id: 22, nama: "Syahla Shofa"},
+    {id: 23, nama: "Putri Ramadhani"},
+    {id: 24, nama: "Ervan"},
+    {id: 25, nama: "Hilda Ramadhani"}, ];
   // Sort students by name A-Z
   students.sort((a,b) => {
     if(a.sekolah === b.sekolah) {
@@ -546,6 +545,7 @@
 </script>
 </body>
 </html>
+
 
 
 
