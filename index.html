@@ -296,35 +296,31 @@
 <script>
 (() => {
   const students = [
-    {id: 1, nama: "Risca Fazriah Syabaniah", sekolah: "SMK KORPRI SUMEDANG"},
-    {id: 2, nama: "Muhammad Cipta Hardiansyah", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 3, nama: "Lita Julia Heryani", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 4, nama: "Risma Kania Dewi", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 5, nama: "Sely Permata Sari", sekolah: "SMKN 2 SUMEDANG" },
-    {id: 6, nama: "Shayma Fakhira Hazimah", sekolah: "SMKN 2 SUMEDANG" },
-    {id: 7, nama: "Salsabila", sekolah: "SMKN 2 SUMEDANG", kelas: "7B"},
-    {id: 8, nama: "Jilan Alyapancahaya", sekolah: "SMKN 2 SUMEDANG" },
-    {id: 9, nama: "Devi Ayuzia Komariah", sekolah: "SMKN 2 SUMEDANG" },
-    {id: 10, nama: "Sri Aulia Anggraeni", sekolah: "SMKN 2 SUMEDANG" },
-    {id: 11, nama: "Kesha Amelia Permana", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 12, nama: "Ai Riani", sekolah: "SMKN 2 SUMEDANG", kelas: "7B"},
-    {id: 13, nama: "Mialda Putri Defiyanti", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 14, nama: "Zulfa Siti Sarah", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 15, nama: "Karisa Aulia Zahra", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 16, nama: "Elis Sriwahyuni", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 17, nama: "Fatimah Az Zahra", sekolah: "SMKN 2 SUMEDANG"},
-    {id: 18, nama: "Riko Pratama", sekolah: "SMKN 1 SUMEDANG"},
-    {id: 19, nama: "Gandi Fimanda Ristama", sekolah: "SMKN 1 SUMEDANG"},
-    {id: 20, nama: "Naufal Arif Yuswandi", sekolah: "SMKN 1 SUMEDANG"},
-    {id: 21, nama: "Kaka Ahmad Fauzi", sekolah: "SMK INFORMATIKA SUMEDANG"},
-    {id: 22, nama: "Agus Setiawan Pratama Putra", sekolah: "SMKN 1 SUMEDANG"},
-    {id: 23, nama: "Theo Fikri Adityapratama", sekolah: "SMKN 1 BUAHDUA"},
-    {id: 24, nama: "Azis Turmuzi", sekolah: "SMKN 1 BUAHDUA", kelas: "7B"},
-    {id: 25, nama: "Candra Ahmad Pratama", sekolah: "SMKN 1 BUAHDUA"},
-    {id: 26, nama: "Giry Algifari", sekolah: "SMKS YPGU SUMEDANG"},
-    {id: 27, nama: "Nailah Nurul Hikmah", sekolah: "SMAN 2 SUMEDANG"}
-];
-
+    {id: 1, nama: "Rifqi Zein Lazuardi", sekolah: "SMK KORPRI SUMEDANG"},
+    {id: 2, nama: "Janwar Rizky", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 3, nama: "Aditya", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 4, nama: "Alvin Ramadhan", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 5, nama: "Muhammad Raffi Hanafi", sekolah: "SMKN 2 SUMEDANG" },
+    {id: 6, nama: "Raffi", sekolah: "SMKN 2 SUMEDANG" },
+    {id: 7, nama: "Ridwan Maulana", sekolah: "SMKN 2 SUMEDANG", kelas: "7B"},
+    {id: 8, nama: "Aripin", sekolah: "SMKN 2 SUMEDANG" },
+    {id: 9, nama: "Faiha Jauza Thufailah", sekolah: "SMKN 2 SUMEDANG" },
+    {id: 10, nama: "Aira Ferlitha Saputri", sekolah: "SMKN 2 SUMEDANG" },
+    {id: 11, nama: "Regina Putri", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 12, nama: "Susi Rosniawati", sekolah: "SMKN 2 SUMEDANG", kelas: "7B"},
+    {id: 13, nama: "Hesti Nur Hasanah", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 14, nama: "Rismayanti Sri Ependi, sekolah: "SMKN 2 SUMEDANG"},
+    {id: 15, nama: "Indy Arianeu", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 16, nama: "Qomara Abdul Hakim", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 17, nama: "Maisun Rusydah N.A", sekolah: "SMKN 2 SUMEDANG"},
+    {id: 18, nama: "Sri Rahayu", sekolah: "SMKN 1 SUMEDANG"},
+    {id: 19, nama: "Salsabilah", sekolah: "SMKN 1 SUMEDANG"},
+    {id: 20, nama: "Ocha Salsabila", sekolah: "SMKN 1 SUMEDANG"},
+    {id: 21, nama: "Siti Fatimah", sekolah: "SMK INFORMATIKA SUMEDANG"},
+    {id: 22, nama: "Syahla Shofa", sekolah: "SMKN 1 SUMEDANG"},
+    {id: 23, nama: "Putri Ramadhani", sekolah: "SMKN 1 BUAHDUA"},
+    {id: 24, nama: "Ervan", sekolah: "SMKN 1 BUAHDUA"},
+    {id: 25, nama: "Hilda Ramadhani", sekolah: "SMKN 1 BUAHDUA"},
   // Sort students by name A-Z
   students.sort((a,b) => {
     if(a.sekolah === b.sekolah) {
@@ -550,3 +546,4 @@
 </script>
 </body>
 </html>
+
